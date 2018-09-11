@@ -1,0 +1,6 @@
+C:\Users\Administrator\Desktop\FileTest\Receive\Receive\bin\Debug\Receive.exe
+C:\Users\Administrator\Desktop\FileTest\Receive\Receive\bin\Debug\Receive.pdb
+C:\Users\Administrator\Desktop\FileTest\Receive\Receive\obj\x86\Debug\Receive.exe
+C:\Users\Administrator\Desktop\FileTest\Receive\Receive\obj\x86\Debug\Receive.pdb
+C:\Users\Administrator\Desktop\FileTest\Receive\Receive\obj\x86\Debug\Receive.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\FileTest\Receive\Receive\obj\x86\Debug\Receive.csproj.CoreCompileInputs.cache
