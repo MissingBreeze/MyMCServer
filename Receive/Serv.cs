@@ -128,7 +128,7 @@ namespace Receive
                         break;
                     case "download":
                         string modName = strArry[1];
-                        SendModFile(modName);
+                        SendMod(modName);
                         break;
                 }
 
@@ -186,7 +186,7 @@ namespace Receive
             {
                 try
                 {
-                    // 接收请求
+                    // 接收连接请求
                     TcpClient tcpClient = tcpListener.AcceptTcpClient();
                     if (tcpClient.Connected)
                     {
@@ -218,6 +218,7 @@ namespace Receive
                         stream.Flush();
                         fileStream.Close();
                         stream.Close();
+                        tcpClient.Close();
                         tcpListener.Stop();
                         Console.WriteLine("发送成功!");
                     }
@@ -225,6 +226,7 @@ namespace Receive
                 catch (Exception e)
                 {
                     Console.WriteLine("发送失败" + e.Message);
+                    Thread.CurrentThread.Abort();
                 }
 
             }
@@ -235,7 +237,7 @@ namespace Receive
         /// <summary>
         /// 发送mod文件
         /// </summary>
-        public void SendModFile(string modName) 
+        public void SendMod(string modName) 
         {
             this.modName = modName;
             string ip = ProgramTools.GetXmlNoteValue("ip");
@@ -267,7 +269,7 @@ namespace Receive
                         // 要传输的流
                         NetworkStream stream = tcpClient.GetStream();
 
-                        string modPath = ProgramTools.GetXmlNoteValue("modPath") + modName;
+                        string modPath = ProgramTools.GetXmlNoteValue("modPath") + @"/" + modName;
 
                         FileStream fileStream = new FileStream(modPath, FileMode.Open);
 
@@ -292,6 +294,7 @@ namespace Receive
                 catch (Exception e)
                 {
                     Console.WriteLine("发送失败" + e.Message);
+                    Thread.CurrentThread.Abort();
                 }
 
             }

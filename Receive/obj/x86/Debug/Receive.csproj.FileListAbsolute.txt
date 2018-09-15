@@ -4,3 +4,8 @@ C:\Users\Administrator\Desktop\FileTest\Receive\Receive\obj\x86\Debug\Receive.ex
 C:\Users\Administrator\Desktop\FileTest\Receive\Receive\obj\x86\Debug\Receive.pdb
 C:\Users\Administrator\Desktop\FileTest\Receive\Receive\obj\x86\Debug\Receive.csprojAssemblyReference.cache
 C:\Users\Administrator\Desktop\FileTest\Receive\Receive\obj\x86\Debug\Receive.csproj.CoreCompileInputs.cache
+E:\Unity\MyMcServer\Receive\obj\x86\Debug\Receive.exe
+E:\Unity\MyMcServer\Receive\obj\x86\Debug\Receive.pdb
+E:\Unity\MyMcServer\Receive\bin\Debug\Receive.exe
+E:\Unity\MyMcServer\Receive\bin\Debug\Receive.pdb
+E:\Unity\MyMcServer\Receive\obj\x86\Debug\Receive.csprojResolveAssemblyReference.cache
