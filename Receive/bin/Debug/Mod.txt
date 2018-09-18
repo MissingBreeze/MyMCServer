@@ -1,2 +1,4 @@
-AutoRegLib-1.0-2.jar
-Psi-r1.0-42.jar
+animania-1.10.2-1.1.2.jar
+BrandonsCore-1.10.2-2.1.13.133-universal.jar
+Draconic-Evolution-1.10.2-2.1.7.266-universal.jar
+Forgelin-1.5.1.jar

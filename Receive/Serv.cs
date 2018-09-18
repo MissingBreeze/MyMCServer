@@ -232,21 +232,61 @@ namespace Receive
             }
         }
 
-        private string modName;
-
         /// <summary>
         /// 发送mod文件
         /// </summary>
         public void SendMod(string modName) 
         {
-            this.modName = modName;
             string ip = ProgramTools.GetXmlNoteValue("ip");
             int port = int.Parse(ProgramTools.GetXmlNoteValue("sendModPort"));
             IPAddress ipAdr = IPAddress.Parse(ip);
             IPEndPoint hosts = new IPEndPoint(ipAdr, port);
             TcpListener tcpLisyener = new TcpListener(hosts);
             tcpLisyener.Start();
-            Thread thread = new Thread(SendModFile);
+            Thread thread = new Thread((object obj) =>             // 同时有多个客户端监听此端口，会怎样？
+            {
+                TcpListener tcpListener = obj as TcpListener;
+                while (true)
+                {
+                    try
+                    {
+                        // 接收请求
+                        TcpClient tcpClient = tcpListener.AcceptTcpClient();
+                        if (tcpClient.Connected)
+                        {
+                            // 要传输的流
+                            NetworkStream stream = tcpClient.GetStream();
+
+                            string modPath = ProgramTools.GetXmlNoteValue("modPath") + @"/" + modName;
+
+                            FileStream fileStream = new FileStream(modPath, FileMode.Open);
+
+                            int fileReadSize = 0;
+                            long fileLength = 0;
+
+                            while (fileLength < fileStream.Length)  //将文件流写入到 NetworkStream 中。问题：当流中数据小于2048（buffer.Length）时，取出的数据是否有问题
+                            {
+                                byte[] buffer = new byte[2048];
+                                fileReadSize = fileStream.Read(buffer, 0, buffer.Length); 
+                                stream.Write(buffer, 0, fileReadSize);
+                                fileLength += fileReadSize;
+                            }
+                            fileStream.Flush();
+                            stream.Flush();
+                            fileStream.Close();
+                            stream.Close();
+                            tcpListener.Stop();
+                            Console.WriteLine("发送成功!");
+                            break;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("发送失败" + e.Message);
+                        //Thread.CurrentThread.Abort();
+                    }
+                }
+            });
             thread.Start(tcpLisyener);
             thread.IsBackground = true;
         }
@@ -269,7 +309,7 @@ namespace Receive
                         // 要传输的流
                         NetworkStream stream = tcpClient.GetStream();
 
-                        string modPath = ProgramTools.GetXmlNoteValue("modPath") + @"/" + modName;
+                        string modPath = "";//ProgramTools.GetXmlNoteValue("modPath") + @"/" + modName;
 
                         FileStream fileStream = new FileStream(modPath, FileMode.Open);
 
@@ -296,7 +336,6 @@ namespace Receive
                     Console.WriteLine("发送失败" + e.Message);
                     Thread.CurrentThread.Abort();
                 }
-
             }
         }
 
